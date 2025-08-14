@@ -22,7 +22,7 @@ public class CustomerList {
     public void addCustomer(Customer customer) {
         customers.add(customer);
     }
-    
+  
     public boolean isRegistered(Customer customer) {
         for(Customer cstmr : customers) {
             if(cstmr.getIdNumder() != customer.getIdNumder()) {
