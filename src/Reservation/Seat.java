@@ -11,30 +11,34 @@ package Reservation;
 public class Seat {
 
     private int number;
-    private boolean isFree;
+    private State state;
 
-    public Seat(int number, boolean isFree) {
+    public Seat(int number, State state) {
         this.number = number;
-        this.isFree = isFree;
+        this.state = state;
     }
 
     public int getNumber() {
         return number;
     }
 
-    public boolean isIsFree() {
-        return isFree;
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     @Override
     public String toString() {
         String availab = "";
-        if (isFree) {
+        if (state.equals(State.FREE)) {
             availab = "free";
         } else {
             availab = "reserved";
         }
 
-        return String.format("seat #%d : %s", number, isFree);
+        return String.format("seat #%d : %s", number, state.getState());
     }
 }
