@@ -4,11 +4,11 @@
  */
 package UI;
 
+import Commands.CancleTicketCommand;
+import Commands.ChangeTicketCommand;
+import Commands.LoadDataCommand;
+import Commands.ReserveTicketCommand;
 import Commands.SaveDataCommand;
-import Reservation.CancleTicketCommand;
-import Reservation.ChangeTicketCommand;
-import Reservation.LoadDataCommand;
-import Reservation.ReserveTicketCommand;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -86,7 +86,11 @@ public class MainMenu {
     }
 
     public static void reserveTicket() {
+        try {
         ReserveTicketCommand.create().handle();
+        } catch(Exception ex) {
+            ErrorMessage.create().show(ex.getMessage());
+        }
     }
 
     public static void changeTicket() {

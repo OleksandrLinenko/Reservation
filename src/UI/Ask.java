@@ -22,4 +22,9 @@ public class Ask {
         Message.create().show(string);
         return sc.next();
     }
+
+    public int askInt(String string) {
+        Message.create().show(string);
+        return sc.nextInt();
+    }
 }
