@@ -55,6 +55,7 @@ public class ReserveTicketCommand {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String timeString = Ask.create().askString("Set and date time you want in this fomat yyyy-MM-dd HH:mm: ");
+        ShowList.create().showSessions(Application.getInstance().getSessions());
         LocalDateTime time = null;
         try {
             time = LocalDateTime.parse(timeString, formatter);
