@@ -4,6 +4,10 @@
  */
 package Commands;
 
+import Reservation.Application;
+import Reservation.Ticket;
+import UI.Ask;
+import java.util.Iterator;
 
 /**
  *
@@ -15,7 +19,18 @@ public class CancleTicketCommand {
         return new CancleTicketCommand();
     }
 
-    public void handle() {
+    public void handle() throws Exception {
+        int idNumber = Ask.create().askInt("Set ticket id number you want change: ");
+        Ticket ticket = Application.getInstance().getTickets().findTicket(idNumber);
+        if (ticket == null) {
+            throw new Exception("No ticket with this id number");
+        }
 
+        for (Iterator<Ticket> iterator = Application.getInstance().getTickets().getTickets().iterator(); iterator.hasNext();) {
+            Ticket tckt = iterator.next();
+            if (tckt.getId() == idNumber) {
+                iterator.remove();
+            }
+        }
     }
 }
