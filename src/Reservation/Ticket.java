@@ -16,6 +16,9 @@ public class Ticket {
     private int sessionId;
 
     public Ticket(int id, int customerId, Seat seat, int sessionId) {
+        if (id <= 0 || customerId <= 0 || sessionId <= 0) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         this.id = id;
         this.customerId = customerId;
         this.seat = seat;

@@ -13,6 +13,9 @@ public class Seat {
     private int number;
 
     public Seat(int number) {
+        if (number <= 0) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         this.number = number;
     }
 

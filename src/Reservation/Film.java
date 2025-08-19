@@ -14,6 +14,9 @@ public class Film {
     private String name;
 
     public Film(int id, String name) {
+        if (id <= 0 || name.isEmpty()) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         this.id = id;
         this.name = name;
     }

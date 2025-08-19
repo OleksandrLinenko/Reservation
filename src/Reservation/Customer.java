@@ -14,6 +14,9 @@ public class Customer {
     private String name;
 
     public Customer(int id, String name) {
+        if (id <= 0 || name.isEmpty()) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         this.id = id;
         this.name = name;
     }

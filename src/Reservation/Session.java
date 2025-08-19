@@ -18,6 +18,9 @@ public class Session {
     private int maxSeats;
 
     public Session(int id, int filmId, LocalDateTime time, int maxSeats) {
+        if (id <= 0 || filmId <= 0 || maxSeats <= 0) {
+            throw new IllegalArgumentException("Illegal argument");
+        }
         this.id = id;
         this.filmId = filmId;
         this.time = time;
