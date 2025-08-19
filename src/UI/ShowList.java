@@ -6,6 +6,8 @@ package UI;
 
 import Reservation.Film;
 import Reservation.FilmList;
+import Reservation.Session;
+import Reservation.SessionList;
 
 /**
  *
@@ -22,4 +24,10 @@ public class ShowList {
             Message.create().show(String.format("%s", film.toString()));
         }
     }
+    
+    public void showSessions(SessionList sessions) {
+        for (Session ses : sessions.getSessions()) {
+            Message.create().show(String.format("%s", ses.toString())); 
+        }
+    }    
 }
