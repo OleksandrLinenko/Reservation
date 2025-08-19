@@ -87,18 +87,26 @@ public class MainMenu {
 
     public static void reserveTicket() {
         try {
-        ReserveTicketCommand.create().handle();
-        } catch(Exception ex) {
+            ReserveTicketCommand.create().handle();
+        } catch (Exception ex) {
             ErrorMessage.create().show(ex.getMessage());
         }
     }
 
     public static void changeTicket() {
-        ChangeTicketCommand.create().handle();
+        try {
+            ChangeTicketCommand.create().handle();
+        } catch (Exception ex) {
+            ErrorMessage.create().show(ex.getMessage());
+        }
     }
 
     public static void cancleTicket() {
-        CancleTicketCommand.create().handle();
+        try {
+            CancleTicketCommand.create().handle();
+        } catch (Exception ex) {
+            ErrorMessage.create().show(ex.getMessage());
+        }
     }
 
     public static void saveData() {
