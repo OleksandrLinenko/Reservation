@@ -5,6 +5,7 @@
 package Reservation;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -41,6 +42,13 @@ public class Session {
 
     public int getMaxSeats() {
         return maxSeats;
+    }
+
+    @Override
+    public String toString() {
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return date.format(formatter);
     }
 
 }
