@@ -14,7 +14,7 @@ import UI.Ask;
 import UI.ShowList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.UUID;
 
 /**
  *
@@ -28,27 +28,17 @@ public class ReserveTicketCommand {
 
     public void handle() throws Exception {
         String name = Ask.create().askString("Set your name: ");
-        Customer customer = null;
-        for (Customer cstmr : Application.getInstance().getCustomers().getCustomers()) {
-            if (cstmr.getName().equals(name)) {
-                customer = cstmr;
-            }
-        }
+        Customer customer = Application.getInstance().getCustomers().find(name);
         if (customer == null) {
-            int id = ThreadLocalRandom.current().nextInt(100000, 1_000_000);
+            UUID guid = UUID.randomUUID();
+            int id = guid.hashCode();
             customer = new Customer(id, name);
             Application.getInstance().getCustomers().add(customer);
-
         }
+
         ShowList.create().showFilms(Application.getInstance().getFilms());
         String filmName = Ask.create().askString("Set film you want buy tickets for: ");
-        Film film = null;
-        for (Film film1 : Application.getInstance().getFilms().getFilms()) {
-            if (film1.getName().equals(filmName)) {
-                film = film1;
-                break;
-            }
-        }
+        Film film = Application.getInstance().getFilms().find(filmName);
         if (film == null) {
             throw new Exception("Film not found");
         }
@@ -64,28 +54,17 @@ public class ReserveTicketCommand {
         }
 
         Seat seat = new Seat(Ask.create().askInt("Set seat: "));
-        Session session = null;
-        for (Session ses : Application.getInstance().getSessions().getSessions()) {
-            if (ses.getFilmId() == film.getId() && seat.getNumber() <= ses.getMaxSeats() && ses.getTime().equals(time)) {
-                session = ses;
-            }
-        }
+        Session session = Application.getInstance().getSessions().find(film, time, seat);
         if (session == null) {
             throw new Exception("No session available for you request");
         }
 
-        boolean occupied = false;
-        for (Ticket ticket : Application.getInstance().getTickets().getTickets()) {
-            if (ticket.getSessionId() == session.getId() && ticket.getSeat().getNumber() == seat.getNumber()) {
-                occupied = true;
-                break;
-            }
-        }
-        if (occupied) {
+        if (Application.getInstance().getTickets().isOccup(session, seat)) {
             throw new Exception("Seat reserved already");
         }
 
-        int ticketId = ThreadLocalRandom.current().nextInt(100000, 1_000_000);
+        UUID guid = UUID.randomUUID();
+        int ticketId = guid.hashCode();
         Ticket ticket = new Ticket(ticketId, customer.getId(), seat, session.getId());
         Application.getInstance().getTickets().getTickets().add(ticket);
     }

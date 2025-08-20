@@ -20,7 +20,7 @@ public class CancleTicketCommand {
     }
 
     public void handle() throws Exception {
-        int idNumber = Ask.create().askInt("Set ticket id number you want change: ");
+        int idNumber = Ask.create().askInt("Set ticket id number you want cancle: ");
         Ticket ticket = Application.getInstance().getTickets().findTicket(idNumber);
         if (ticket == null) {
             throw new Exception("No ticket with this id number");
