@@ -32,4 +32,16 @@ public class TicketList {
 
         return null;
     }
+
+    public boolean isOccup(Session session, Seat seat) {
+        boolean occupied;
+        for (Ticket ticket : tickets) {
+            if (ticket.getSessionId() == session.getId() && ticket.getSeat().getNumber() == seat.getNumber()) {
+                occupied = true;
+                break;
+            }
+        }
+
+        return false;
+    }
 }

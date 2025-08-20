@@ -4,6 +4,7 @@
  */
 package Reservation;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,16 @@ public class SessionList {
     public Session find(int id) {
         for (Session ses : sessions) {
             if (ses.getId() == id) {
+                return ses;
+            }
+        }
+
+        return null;
+    }
+
+    public Session find(Film film, LocalDateTime time, Seat seat) {
+        for (Session ses : sessions) {
+            if (ses.getFilmId() == film.getId() && seat.getNumber() <= ses.getMaxSeats() && ses.getTime().equals(time)) {
                 return ses;
             }
         }
